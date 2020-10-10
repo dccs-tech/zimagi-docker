@@ -1,0 +1,12 @@
+_ansible: &ansible
+    provider: ansible
+    roles: docker-admin
+    directory: ansible
+
+docker:
+    <<: *ansible
+    playbooks: docker.yml
+
+services:
+    <<: *ansible
+    playbooks: services.yml

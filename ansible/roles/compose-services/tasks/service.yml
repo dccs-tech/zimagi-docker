@@ -1,0 +1,25 @@
+- name: service | stop application services
+  shell: docker-compose rm --stop --force
+  become: yes
+  become_user: "{{ app_user }}"
+  when: _docker_compose.stat.exists == True
+  args:
+      chdir: "{{ app_home }}"
+
+- name: service | download compose manifest
+  get_url:
+      url: "{{ remote_docker_compose }}"
+      dest: "{{ local_docker_compose }}"
+      force: true
+      owner: "{{ app_user }}"
+      group: "{{ app_user }}"
+      mode: "0664"
+  when: remote_docker_compose is not none
+
+- name: service | start application services
+  shell: docker-compose up -d
+  become: yes
+  become_user: "{{ app_user }}"
+  args:
+      chdir: "{{ app_home }}"
+  when: remote_docker_compose is not none

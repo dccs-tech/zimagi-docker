@@ -1,0 +1,7 @@
+ntp_manage_config: true
+
+docker_install_compose: true
+docker_compose_version: "1.23.2"
+
+app_user: ubuntu
+remote_docker_compose: null

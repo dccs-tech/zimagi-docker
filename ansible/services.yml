@@ -1,0 +1,6 @@
+- name: Install Docker and Docker Compose
+  include: docker.yml
+
+- hosts: all
+  roles:
+      - { role: compose-services }
